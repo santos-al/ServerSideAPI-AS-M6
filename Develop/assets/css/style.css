@@ -1,0 +1,58 @@
+/* List of variables that are commonly used in the code */
+:root {
+    --light-color: #bfccf6;
+    --medium-color: #6883BA;
+    --white-text: azure;
+    --font: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
+}
+
+/* Sets the foundation margin and padding as 0. Organizes the structure of the page as a border-box */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Stretches the contents to fill the whole page */
+html,body
+{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden; 
+    background-color: var(--light-color);
+}
+
+/* Create navbar dimensions, font, and colors */
+header.nav {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    font-family: var(--font);
+    background-color: var(--medium-color);
+    color: var(--white-text);
+    border-bottom: var(--light-color);
+    border-bottom: dotted;
+}
+
+/* Set the size and padding for the title of the page */
+h1.title {
+    width: 50%;
+    font-size: 40px;
+    padding-left: 10px;
+}
+
+/* Make the navbar 'flex', set the font size, and organize its contents */
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 50%;
+    font-size: 20px;
+    align-items: center;
+}
