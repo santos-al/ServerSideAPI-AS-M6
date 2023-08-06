@@ -97,6 +97,7 @@ function renderForecastCard(forecast) {
   forecastContainer.append(col);
 }
 
+
 // Function to display 5 day forecast.
 function renderForecast(dailyForecast) {
   // Create unix timestamps for start and end of 5 day forecast
@@ -124,4 +125,62 @@ function renderForecast(dailyForecast) {
       }
     }
   }
+}
+
+function renderItems(city, data) {
+  renderCurrentWeather(city, data.list[0], data.city.timezone);
+  renderForecast(data.list);
+}
+
+// Fetches weather data for given location from the Weather Geolocation
+// endpoint; then, calls functions to display current and forecast weather data.
+function fetchWeather(location) {
+  var { lat } = location;
+  var { lon } = location;
+  var city = location.name;
+
+  var apiUrl = `${weatherApiRootUrl}/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${weatherApiKey}`;
+
+  fetch(apiUrl)
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (data) {
+      renderItems(city, data);
+    })
+    .catch(function (err) {
+      console.error(err);
+    });
+}
+
+function fetchCoords(search) {
+  var apiUrl = `${weatherApiRootUrl}/geo/1.0/direct?q=${search}&limit=5&appid=${weatherApiKey}`;
+
+  fetch(apiUrl)
+    .then(function (res) {
+      return res.json();
+    })
+    .then(function (data) {
+      if (!data[0]) {
+        alert('Location not found');
+      } else {
+        appendToHistory(search);
+        fetchWeather(data[0]);
+      }
+    })
+    .catch(function (err) {
+      console.error(err);
+    });
+}
+
+function handleSearchFormSubmit(e) {
+  // Don't continue if there is nothing in the search form
+  if (!searchInput.value) {
+    return;
+  }
+
+  e.preventDefault();
+  var search = searchInput.value.trim();
+  fetchCoords(search);
+  searchInput.value = '';
 }
